@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fffaf5">
+  <meta name="description" content="IT Start — IT yo‘nalishlarini o‘zbek tilida, amaliy va mustaqil o‘rganing.">
+  <title>IT Start — O‘rganishni bugun boshla</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --orange: #e97824;
+      --orange-dark: #bd570e;
+      --orange-pale: #fff0e2;
+      --bg: #fffaf5;
+      --paper: #fff;
+      --ink: #29231f;
+      --muted: #756a61;
+      --line: rgba(107, 73, 47, .16);
+      --green: #328451;
+      --radius: 20px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.55; }
+    body::before { position: fixed; inset: 0; z-index: -1; content: ""; pointer-events: none; background: radial-gradient(ellipse at 80% 0%, #ffead8 0, transparent 34%), radial-gradient(ellipse at 0% 50%, #fff1e5 0, transparent 28%); }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button { color: inherit; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .topbar { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: rgba(255,250,245,.92); backdrop-filter: blur(16px); }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 850; letter-spacing: -.5px; }
+    .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 12px; background: var(--orange); color: white; font: 800 13px ui-monospace, monospace; }
+    .brand em { color: var(--orange-dark); font-style: normal; }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: #5e534a; font-size: 13px; font-weight: 650; }
+    .nav-links a:hover, .footer-links a:hover { color: var(--orange-dark); }
+    .button, .nav-action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 17px; border: 0; border-radius: 12px; background: var(--orange); color: white; font-size: 13px; font-weight: 800; cursor: pointer; transition: .2s; }
+    .button:hover, .nav-action:hover { transform: translateY(-2px); background: #d76718; box-shadow: 0 9px 22px #e9782430; }
+    .button.secondary { border: 1px solid var(--line); background: #fff; color: var(--ink); }
+    .button.secondary:hover { border-color: #e9782470; background: var(--orange-pale); box-shadow: none; }
+    .button.small { padding: 9px 13px; font-size: 11px; }
+    .button.done { background: var(--green); }
+    .menu-button { display: none; border: 1px solid var(--line); border-radius: 10px; background: white; padding: 9px 12px; cursor: pointer; }
+
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 48px; padding-block: 78px 84px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 7px 11px; border: 1px solid #e9782440; border-radius: 30px; background: var(--orange-pale); color: var(--orange-dark); font-size: 11px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+    h1 { margin: 22px 0 16px; max-width: 650px; font-size: clamp(43px, 6vw, 72px); line-height: 1.03; letter-spacing: -.065em; }
+    h1 .accent { color: var(--orange); }
+    .hero-copy { max-width: 545px; color: var(--muted); font-size: 15px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 26px; }
+    .micro-proof { display: flex; align-items: center; gap: 12px; margin-top: 26px; color: var(--muted); font-size: 12px; }
+    .micro-proof strong { color: var(--ink); }
+    .avatars { display: flex; padding-left: 5px; }
+    .avatars span { width: 29px; height: 29px; display: grid; place-items: center; margin-left: -5px; border: 2px solid var(--bg); border-radius: 50%; background: var(--orange-pale); }
+    .hero-art { position: relative; min-height: 365px; display: grid; place-items: center; }
+    .orbit { position: absolute; width: min(350px, 90%); aspect-ratio: 1; border: 1px solid #e9782428; border-radius: 50%; }
+    .orbit::before, .orbit::after { position: absolute; inset: 14%; border: 1px solid #e978241c; border-radius: 50%; content: ""; }
+    .orbit::after { inset: 29%; }
+    .code-card { position: relative; z-index: 1; width: min(345px, 88%); padding: 18px; transform: rotate(-3deg); border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, #fff, #fff5ea); box-shadow: 0 28px 65px #75421f1c; }
+    .window-top { display: flex; align-items: center; gap: 6px; padding-bottom: 13px; border-bottom: 1px solid var(--line); color: var(--muted); font: 11px ui-monospace, monospace; }
+    .window-top span:nth-child(4) { margin-left: auto; }
+    .window-dot { width: 7px; height: 7px; border-radius: 50%; background: #ff7b83; }
+    .window-dot:nth-child(2) { background: #ffc96e; }.window-dot:nth-child(3) { background: #69c98a; }
+    .code-lines { padding-top: 14px; color: #4a4039; font: 12px/2 ui-monospace, monospace; }
+    .indent { padding-left: 20px; }.indent2 { padding-left: 40px; }
+    .code-key { color: #a14392; }.code-value { color: #bd570e; }.code-number { color: #4c65bd; }.code-muted { color: #8a817a; }
+    .float-chip { position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 13px; background: #fff; box-shadow: 0 9px 25px #75421f18; font-size: 11px; font-weight: 750; }
+    .float-chip.one { top: 35px; right: 0; }.float-chip.two { bottom: 30px; left: 0; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 20px 0; border-block: 1px solid var(--line); }
+    .stat { display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--muted); font-size: 12px; }
+    .stat strong { display: block; color: var(--ink); font-size: 18px; letter-spacing: -.04em; }
+    section { scroll-margin-top: 88px; }
+    .section { padding-top: 86px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 27px; }
+    .section-kicker { color: var(--orange-dark); font-size: 11px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
+    .section-heading h2 { margin: 9px 0 0; font-size: clamp(28px, 4vw, 42px); line-height: 1.12; letter-spacing: -.05em; }
+    .section-heading p { max-width: 435px; margin: 0; color: var(--muted); font-size: 13px; }
+    .catalog-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 13px; margin-bottom: 20px; }
+    .search { position: relative; flex: 1 1 250px; max-width: 350px; }
+    .search span { position: absolute; top: 50%; left: 13px; transform: translateY(-50%); color: var(--muted); }
+    .search input { width: 100%; padding: 12px 14px 12px 39px; border: 1px solid var(--line); border-radius: 12px; outline: none; background: white; color: var(--ink); font-size: 12px; }
+    .search input:focus { border-color: #e9782480; }
+    .filters { display: flex; flex-wrap: wrap; gap: 7px; }
+    .filter { border: 1px solid var(--line); border-radius: 30px; padding: 8px 12px; background: transparent; color: var(--muted); font-size: 11px; cursor: pointer; }
+    .filter.active, .filter:hover { border-color: #e9782470; background: var(--orange-pale); color: var(--orange-dark); }
+    .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .course-card { min-height: 240px; display: flex; flex-direction: column; padding: 20px; border: 1px solid var(--line); border-radius: 17px; background: linear-gradient(145deg, white, #fff9f3); text-align: left; box-shadow: 0 3px 14px #75421f09; transition: .2s; }
+    .course-card:hover { transform: translateY(-4px); border-color: #e9782460; background: linear-gradient(145deg, white, #fff1e5); }
+    .course-card:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+    .course-card[hidden] { display: none; }
+    .card-top { display: flex; align-items: start; justify-content: space-between; }
+    .course-icon { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 13px; background: #fff4ea; font-size: 22px; }
+    .level { border: 1px solid var(--line); border-radius: 30px; padding: 5px 9px; color: #655b54; font-size: 10px; }
+    .course-title { display: block; margin: 17px 0 5px; font-size: 17px; font-weight: 800; letter-spacing: -.03em; }
+    .course-description { display: block; color: var(--muted); font-size: 12px; }
+    .card-meta { display: flex; flex-wrap: wrap; gap: 9px; margin-top: auto; padding-top: 16px; color: #70665e; font-size: 10px; }
+    .card-meta span:last-child { margin-left: auto; color: var(--orange-dark); font-weight: 800; }
+    .empty-state { display: none; grid-column: 1 / -1; padding: 35px; border: 1px dashed var(--line); border-radius: 16px; color: var(--muted); text-align: center; }
+
+    .path-box { display: grid; grid-template-columns: .9fr 1.1fr; gap: 35px; padding: 32px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(135deg, #fff0e2, #fff); }
+    .path-box h2 { margin: 9px 0; font-size: 31px; letter-spacing: -.05em; line-height: 1.16; }
+    .path-box p { color: var(--muted); font-size: 13px; }
+    .path-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .path-step { display: flex; align-items: start; gap: 11px; padding: 14px; border: 1px solid var(--line); border-radius: 13px; background: #ffffffc9; }
+    .step-number { width: 29px; height: 29px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 9px; background: #ffe2c9; color: var(--orange-dark); font-size: 12px; font-weight: 850; }
+    .path-step strong { display: block; font-size: 12px; }.path-step small { color: var(--muted); font-size: 10px; }
+    .age-note { margin-top: 16px; padding: 12px 14px; border-left: 2px solid var(--orange); background: #e9782410; color: #5b5048; font-size: 11px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; }
+    .feature { padding: 21px; border: 1px solid var(--line); border-radius: 16px; background: white; box-shadow: 0 3px 14px #75421f09; }
+    .feature-icon { font-size: 22px; }.feature h3 { margin: 13px 0 6px; font-size: 15px; }.feature p { margin: 0; color: var(--muted); font-size: 12px; }
+    .donate { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 26px; padding: 32px; border: 1px solid #e9782440; border-radius: var(--radius); background: linear-gradient(115deg, #fff0e1, #fffaf5); }
+    .donate::after { position: absolute; top: -105px; right: 14%; width: 240px; height: 240px; border: 1px solid #e9782425; border-radius: 50%; box-shadow: 0 0 0 35px #e9782408, 0 0 0 70px #e9782406; content: ""; }
+    .donate-content { position: relative; z-index: 1; max-width: 620px; }.donate h2 { margin: 9px 0; font-size: 29px; letter-spacing: -.05em; }.donate p { margin: 0; color: #655a51; font-size: 13px; }
+    .donate .button { position: relative; z-index: 1; flex: 0 0 auto; }
+    footer { margin-top: 82px; border-top: 1px solid var(--line); }
+    .footer-inner { min-height: 100px; display: flex; align-items: center; justify-content: space-between; gap: 18px; color: var(--muted); font-size: 11px; }
+    .footer-links { display: flex; gap: 17px; }
+
+    dialog { width: min(760px, calc(100% - 28px)); max-height: min(90vh, 830px); padding: 0; border: 1px solid #6b492f30; border-radius: 19px; background: var(--bg); color: var(--ink); box-shadow: 0 28px 90px #53301440; }
+    dialog::backdrop { background: #28170db5; backdrop-filter: blur(4px); }
+    .modal-head { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 19px 22px; border-bottom: 1px solid var(--line); background: #fffaf5f5; }
+    .modal-head h2 { margin: 0; font-size: 21px; letter-spacing: -.04em; }.modal-head p { margin: 4px 0 0; color: var(--muted); font-size: 11px; }
+    .modal-head-actions { display: flex; align-items: center; gap: 8px; }
+    .close-modal { width: 34px; height: 34px; flex: 0 0 auto; border: 1px solid var(--line); border-radius: 10px; background: white; cursor: pointer; }
+    .course-progress { height: 5px; background: #f0e5dc; }.course-progress span { height: 100%; display: block; width: 0; background: var(--orange); transition: width .2s; }
+    .modal-content { padding: 19px 22px 24px; }
+    .start-lesson { margin-bottom: 18px; padding: 15px; border: 1px solid #e9782435; border-radius: 14px; background: #fff2e6; }
+    .start-lesson p { margin: 0 0 10px; color: #655a51; font-size: 12px; }
+    .module { margin-bottom: 19px; }.module h3 { margin: 0 0 9px; color: var(--orange-dark); font-size: 12px; }
+    .lesson-list { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; list-style: none; margin: 0; padding: 0; }.lesson-list li { min-width: 0; }
+    .lesson-open { width: 100%; height: 100%; display: flex; align-items: start; gap: 9px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: white; color: var(--ink); text-align: left; font-size: 11px; cursor: pointer; }
+    .lesson-open:hover, .lesson-open:focus-visible { border-color: #e9782475; background: #fff2e6; outline: none; }.lesson-open.completed { border-color: #32845145; background: #f0faf2; }
+    .lesson-num { flex: 0 0 auto; color: #81776f; font: 10px ui-monospace, monospace; }
+    .lesson-detail h3 { margin: 7px 0; font-size: 24px; letter-spacing: -.04em; }.lesson-intro { color: #5f554d; font-size: 13px; }
+    .teach-box, .practice-box { margin-top: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 13px; background: white; }
+    .teach-box h4, .practice-box h4 { margin: 0 0 9px; font-size: 13px; }.teach-box p, .practice-box p { color: #5f554d; font-size: 12px; }
+    .teach-steps { display: grid; gap: 8px; margin: 11px 0 14px; padding: 0; list-style: none; counter-reset: steps; }
+    .teach-steps li { position: relative; padding: 10px 10px 10px 39px; border-radius: 9px; background: #fff8f1; color: #554a42; font-size: 12px; counter-increment: steps; }
+    .teach-steps li::before { position: absolute; top: 8px; left: 9px; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 7px; background: #ffe2c9; color: var(--orange-dark); content: counter(steps); font-size: 10px; font-weight: 850; }
+    .lesson-demo { overflow: auto; padding: 13px; border-radius: 10px; background: #29231f; color: #fff4e8; font: 12px/1.65 ui-monospace, monospace; white-space: pre-wrap; }
+    .lesson-note { width: 100%; min-height: 72px; padding: 10px; border: 1px solid var(--line); border-radius: 9px; resize: vertical; background: #fff; color: var(--ink); font-size: 12px; }
+    .lesson-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 15px; }
+    .toast { position: fixed; right: 20px; bottom: 20px; z-index: 30; max-width: 350px; padding: 13px 16px; transform: translateY(18px); border: 1px solid #e9782440; border-radius: 12px; background: white; color: var(--ink); box-shadow: 0 10px 30px #53301426; font-size: 12px; opacity: 0; pointer-events: none; transition: .22s; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr .85fr; gap: 18px; }.nav-links { gap: 16px; }.course-grid { grid-template-columns: repeat(2, 1fr); }
+      .path-box { grid-template-columns: 1fr; gap: 20px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 32px, 500px); }.nav { min-height: 66px; }.menu-button { display: inline-block; }.nav-action { display: none; }
+      .nav-links { position: absolute; top: 66px; right: 16px; left: 16px; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 8px; border: 1px solid var(--line); border-radius: 13px; background: white; box-shadow: 0 18px 35px #53301422; }
+      .nav-links.open { display: flex; }.nav-links a { padding: 11px; }
+      .hero { grid-template-columns: 1fr; gap: 0; padding-block: 48px 45px; }.hero-art { min-height: 280px; margin-top: 15px; }h1 { font-size: clamp(42px, 12vw, 60px); }.hero-copy { font-size: 14px; }
+      .float-chip.one { top: 20px; right: 0; }.float-chip.two { bottom: 15px; left: 0; }
+      .stats { grid-template-columns: 1fr 1fr; row-gap: 16px; }.stat { justify-content: flex-start; padding-left: 10px; }
+      .section { padding-top: 64px; }.section-heading { display: block; }.section-heading p { margin-top: 12px; }
+      .catalog-tools { align-items: stretch; }.search { max-width: none; flex-basis: 100%; }.filters { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }.filter { flex: 0 0 auto; }
+      .course-grid, .features { grid-template-columns: 1fr; }.course-card { min-height: 215px; }
+      .path-box { padding: 22px; }.path-box h2 { font-size: 27px; }.path-steps { grid-template-columns: 1fr; }
+      .donate { align-items: flex-start; flex-direction: column; padding: 24px; }.donate h2 { font-size: 25px; }.donate::after { right: -100px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 20px; }.footer-links { flex-wrap: wrap; }
+      .lesson-list { grid-template-columns: 1fr; }.modal-head, .modal-content { padding-inline: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#bosh-sahifa" aria-label="IT Start bosh sahifa"><span class="brand-mark">&lt;/&gt;</span><span>IT <em>Start</em></span></a>
+      <nav class="nav-links" id="navLinks" aria-label="Asosiy navigatsiya">
+        <a href="#yonalishlar">Yo‘nalishlar</a><a href="#yol-xaritasi">Yosh bo‘yicha</a><a href="#biz-haqimizda">Biz haqimizda</a><a href="#donat">Donat</a>
+      </nav>
+      <a class="nav-action" href="#yonalishlar">O‘rganishni boshlash ↗</a>
+      <button class="menu-button" id="menuButton" aria-label="Menyuni ochish" aria-expanded="false">☰</button>
+    </div>
+  </header>
+  <main>
+    <section class="wrap hero" id="bosh-sahifa">
+      <div>
+        <div class="eyebrow"><span class="live-dot"></span> IT olamiga ilk qadam shu yerdan</div>
+        <h1>Kelajagingni<br><span class="accent">kodla.</span> O‘zingni<br>kashf et.</h1>
+        <p class="hero-copy">Dasturlashdan dizayngacha — IT’ni o‘zbek tilida mustaqil o‘rgan. Har bir darsda sodda izoh, aniq qadamlar, misol va o‘zing bajaradigan mashq bor.</p>
+        <div class="hero-actions"><a class="button" href="#yonalishlar">Yo‘nalishni tanlash →</a><a class="button secondary" href="#yol-xaritasi">Qanday boshlayman?</a></div>
+        <div class="micro-proof"><div class="avatars" aria-hidden="true"><span>👩🏻‍💻</span><span>🧑🏽‍🎨</span><span>👨🏼‍💻</span></div><span><strong>Har kim uchun.</strong> Yosh va tajribadan qat’i nazar.</span></div>
+      </div>
+      <div class="hero-art" aria-label="Dasturlash kodlari tasviri">
+        <div class="orbit"></div><div class="float-chip one">🚀 Noldan boshlash</div><div class="float-chip two">✨ O‘z loyihangni yarat</div>
+        <div class="code-card">
+          <div class="window-top"><i class="window-dot"></i><i class="window-dot"></i><i class="window-dot"></i><span>mening-kelajagim.js</span><span>•••</span></div>
+          <div class="code-lines">
+            <div><span class="code-muted">01</span> <span class="code-key">const</span> orzu = <span class="code-value">"IT mutaxassisi"</span>;</div>
+            <div><span class="code-muted">02</span> <span class="code-key">const</span> sen = {</div>
+            <div class="indent"><span class="code-number">qiziqish</span>: <span class="code-value">"cheksiz"</span>,</div>
+            <div class="indent"><span class="code-number">boshlash</span>: <span class="code-value">"bugun"</span>,</div>
+            <div class="indent"><span class="code-number">imkoniyat</span>: <span class="code-value">true</span></div>
+            <div>};</div>
+            <div><span class="code-muted">07</span> <span class="code-key">while</span> (sen.o‘rganyapsan) {</div>
+            <div class="indent"><span class="code-number">kelajak</span>.<span class="code-value">yarat</span>();</div>
+            <div class="indent2"><span class="code-muted">// Sening navbating!</span></div><div>}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="wrap stats" aria-label="Platforma haqida">
+      <div class="stat"><span>📚</span><div><strong>11 ta</strong> IT yo‘nalishi</div></div>
+      <div class="stat"><span>🧩</span><div><strong>330 ta</strong> mustaqil dars</div></div>
+      <div class="stat"><span>🌱</span><div><strong>0 dan</strong> boshlash mumkin</div></div>
+      <div class="stat"><span>💚</span><div><strong>Bepul</strong> o‘rganish yo‘li</div></div>
+    </div>
+    <section class="wrap section" id="yonalishlar">
+      <div class="section-heading"><div><div class="section-kicker">O‘zingga mosini top</div><h2>IT olami katta.<br>Sening yo‘ling qaysi?</h2></div><p>Yo‘nalishni tanla, kartani bos va “Birinchi darsni boshlash”ni tanla. Har bir darsda nima qilish kerakligi birma-bir ko‘rsatiladi.</p></div>
+      <div class="catalog-tools">
+        <label class="search"><span aria-hidden="true">⌕</span><input id="courseSearch" type="search" placeholder="Yo‘nalish qidirish..." aria-label="Yo‘nalish qidirish"></label>
+        <div class="filters" role="group" aria-label="Yosh bo‘yicha filtrlash">
+          <button class="filter active" data-age="all" aria-pressed="true">Barchasi</button><button class="filter" data-age="kids" aria-pressed="false">8–12 yosh</button><button class="filter" data-age="teens" aria-pressed="false">13–17 yosh</button><button class="filter" data-age="adults" aria-pressed="false">18+ yosh</button>
+        </div>
+      </div>
+      <div class="course-grid" id="courseGrid" aria-live="polite"></div>
+    </section>
+    <section class="wrap section" id="yol-xaritasi">
+      <div class="path-box">
+        <div><div class="section-kicker">Yoshga qarab yo‘l-yo‘riq</div><h2>Yoshing emas,<br>qiziqishing muhim.</h2><p>IT o‘rganish uchun “juda erta” yoki “juda kech” degan narsa yo‘q. Yosh bo‘yicha tavsiyalar yo‘l ko‘rsatadi, qat’iy chegara emas.</p><div class="age-note">💡 Oldin kod yozmagan bo‘lsang ham mayli — darslar eng kerakli tushunchalardan boshlanadi.</div></div>
+        <div class="path-steps">
+          <div class="path-step"><span class="step-number">01</span><div><strong>8–12 yosh · O‘yin orqali</strong><small>Scratch, mantiq va raqamli ijod</small></div></div>
+          <div class="path-step"><span class="step-number">02</span><div><strong>13–17 yosh · Sinab ko‘r</strong><small>Python, web, dizayn va ilk loyihalar</small></div></div>
+          <div class="path-step"><span class="step-number">03</span><div><strong>18+ yosh · Chuqurlash</strong><small>Mutaxassislik, portfolio va amaliyot</small></div></div>
+          <div class="path-step"><span class="step-number">04</span><div><strong>Har qanday yosh · Davom et</strong><small>Yangi ko‘nikma — yangi imkoniyat</small></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="wrap section" id="biz-haqimizda">
+      <div class="section-heading"><div><div class="section-kicker">Nega IT Start?</div><h2>Mustaqil o‘rgan.<br>Haqiqiy natija yarat.</h2></div><p>Onlayn ustoz bo‘lmasa ham, har bir dars qadam-baqadam yo‘l ko‘rsatadi. O‘rganganingni o‘z loyihangda sinab ko‘r.</p></div>
+      <div class="features">
+        <article class="feature"><span class="feature-icon">🧭</span><h3>Qayerdan boshlash aniq</h3><p>Har yo‘nalishda 6 modul va izchil 30 darslik reja.</p></article>
+        <article class="feature"><span class="feature-icon">🛠️</span><h3>Ko‘rib, bajarib o‘rgan</h3><p>Sodda tushuntirish, namuna, mashq va o‘zingni tekshirish savollari.</p></article>
+        <article class="feature"><span class="feature-icon">💾</span><h3>Jarayoning saqlanadi</h3><p>Bajarilgan darslar va qaydlar brauzeringda saqlanadi.</p></article>
+      </div>
+    </section>
+    <section class="wrap section" id="donat">
+      <div class="donate"><div class="donate-content"><div class="section-kicker">Bilimni birga ulashamiz</div><h2>Loyihani qo‘llab-quvvatla 💚</h2><p>Yordaming yangi darslar tayyorlashga yordam beradi. Hozircha to‘lov yoki karta ulanmagan.</p></div><button class="button" id="donateButton" type="button">Donat haqida ↗</button></div>
+    </section>
+  </main>
+  <footer><div class="wrap footer-inner"><a class="brand" href="#bosh-sahifa"><span class="brand-mark">&lt;/&gt;</span><span>IT <em>Start</em></span></a><span>© <span id="year"></span> IT Start · O‘rganish bugun boshlanadi.</span><div class="footer-links"><a href="#yonalishlar">Yo‘nalishlar</a><a href="#yol-xaritasi">Yosh bo‘yicha</a><a href="#donat">Donat</a></div></div></footer>
+  <dialog id="courseDialog" aria-labelledby="dialogTitle">
+    <div class="modal-head"><div><h2 id="dialogTitle">O‘quv rejasi</h2><p id="dialogSubtitle">30 dars · 6 modul</p></div><div class="modal-head-actions"><button class="button secondary small" id="backToPlan" type="button" hidden>← Darslar</button><button class="close-modal" id="closeDialog" aria-label="Oynani yopish">✕</button></div></div>
+    <div class="course-progress" aria-label="Kurs bo‘yicha bajarilgan darslar"><span id="courseProgressBar"></span></div><div class="modal-content" id="lessonContent"></div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    const lessonNames = ["Tushuncha va atamalar", "Asosiy vositalar bilan tanishuv", "Birinchi amaliy mashq", "Xatolarni topish va tuzatish", "Mini-loyiha va natijani ulashish"];
+    const courses = {
+      scratch: { title:"Scratch va mantiq", age:8, ages:"kids", icon:"🧩", level:"Yangi boshlovchi", description:"Bloklarni ulab, o‘yin, animatsiya va hikoya yarat; dasturlash mantiqini o‘rgan.", duration:"4–8 hafta", modules:["Scratch muhiti bilan tanishish","Qahramon va sahna yaratish","Hodisalar va harakat bloklari","Sikl, shart va mantiq","Ball, tovush va o‘yin qoidalari","Yakuniy loyiha: interaktiv o‘yin"], about:"Scratch’da kodni matn qilib yozmay, rangli bloklarni ulaysan. Har bir blok buyruq bo‘lib, ketma-ketligi qahramon nima qilishini belgilaydi.", tool:"Scratch muharriri", url:"https://scratch.mit.edu/projects/editor/", steps:["Scratch muharririni brauzerda och.","Qahramonni va sahnani tanla.","Bloklarni ulab, yashil bayroqni bos va natijani sinab ko‘r."], example:"Yashil bayroq bosilganda\\n10 qadam yur\\nChetga yetsa, aks et\\n«Salom!» tovushini chal", task:"Qahramon yashil bayroq bosilganda yuradigan, tugma bilan boshqariladigan kichik o‘yin yarat." },
+      frontend: { title:"Veb dasturlash", age:12, ages:"kids teens adults", icon:"🌐", level:"Boshlang‘ich", description:"HTML, CSS va JavaScript bilan internet sahifalarini yarat.", duration:"8–12 hafta", modules:["Internet va veb sahifa qanday ishlaydi","HTML: sahifa tuzilishi","CSS: rang, shrift va joylashuv","Moslashuvchan dizayn va accessibility","JavaScript: sahifaga interaktivlik","Yakuniy loyiha: shaxsiy portfolio"], about:"HTML sahifaning mazmunini, CSS ko‘rinishini, JavaScript esa harakatini boshqaradi.", tool:"CodePen", url:"https://codepen.io/pen/", steps:["CodePen sahifasini och.","HTML, CSS yoki JS panelidan darsga mosini tanla.","Misolni yoz; natijani pastdagi oynada ko‘r."], example:"<h1>Salom, dunyo!</h1>\\n<p>Men veb sahifa yaratyapman.</p>", task:"Sarlavha, o‘zing haqingda bir gap va sevimli rangingdagi tugma bo‘lgan kichik sahifa yarat." },
+      python: { title:"Python dasturlash", age:10, ages:"kids teens adults", icon:"🐍", level:"Boshlang‘ich", description:"Python bilan kod yozish, masala yechish va ishlarni avtomatlashtirishni o‘rgan.", duration:"8–12 hafta", modules:["Python va dasturlashga kirish","O‘zgaruvchilar, sonlar va matnlar","Shartlar va mantiqiy amallar","Sikllar va ma’lumotlar to‘plami","Funksiyalar va kichik dasturlar","Yakuniy loyiha: foydali Python dasturi"], about:"Python — kompyuterga buyruqlarni sodda yozuv bilan beradigan til. Kod yuqoridan pastga bajariladi.", tool:"Python muharriri", url:"https://www.programiz.com/python-programming/online-compiler/", steps:["Onlayn Python muharririni och.","Kod yoziladigan maydonni bos.","Misolni yozib, Run tugmasini bos; javob pastda chiqadi."], example:"ism = input('Isming nima? ')\\nprint('Salom, ' + ism + '!')", task:"Ismingni so‘raydigan, keyin salom beradigan kichik dastur yoz. Keyin unga yoshingni so‘rashni qo‘sh." },
+      design: { title:"UI/UX dizayn", age:13, ages:"teens adults", icon:"🎨", level:"Boshlang‘ich", description:"Foydalanuvchiga qulay, chiroyli va tushunarli interfeyslar loyihala.", duration:"6–10 hafta", modules:["Dizayn fikrlashi va foydalanuvchi","Tadqiqot va foydalanuvchi portreti","Axborot arxitekturasi va oqimlar","Wireframe va vizual iyerarxiya","Rang, tipografika va prototip","Yakuniy loyiha: ilova dizayni"], about:"UX mahsulotdan foydalanish qanchalik osonligini, UI esa ekranning ko‘rinishini loyihalaydi.", tool:"Figma", url:"https://www.figma.com/", steps:["Figma’ni ochib yangi design file yarat.","Frame tanlab, telefon o‘lchamidagi ekran qo‘sh.","Text va Rectangle vositalari bilan ekranni tuz."], example:"Ekran: Kirish\\nSarlavha: Xush kelibsiz!\\nMaydon: Email\\nTugma: Davom etish", task:"Ilova uchun kirish ekranini chiz: aniq sarlavha, bitta matn maydoni va asosiy tugma." },
+      data: { title:"Data analytics", age:15, ages:"teens adults", icon:"📊", level:"Boshlang‘ich", description:"Ma’lumotlarni tahlil qil, xulosa va vizual hisobotlar yarat.", duration:"8–12 hafta", modules:["Ma’lumot va tahlilga kirish","Jadval va ma’lumotni tartiblash","Excel/Sheets formulalari","SQL va ma’lumotlar bazasi","Grafik va ma’lumot vizualizatsiyasi","Yakuniy loyiha: tahliliy hisobot"], about:"Data analytics jadvaldagi ma’lumotni tartiblab, savollarga javob topish va xulosani ko‘rsatishga yordam beradi.", tool:"Google Sheets", url:"https://docs.google.com/spreadsheets/", steps:["Google Sheets’da bo‘sh jadval och.","Birinchi qatorga ustun nomlarini yoz.","Namuna ma’lumot kirgizib, formula yoki grafik menyusini sinab ko‘r."], example:"Kun | Tashrif\\nDushanba | 12\\nSeshanba | 18\\nChorshanba | 15\\nJami | =SUM(B2:B4)", task:"Bir haftalik o‘qish vaqting jadvalini tuz. Jami vaqtni hisobla va grafikda ko‘rsat." },
+      mobile: { title:"Mobil ilovalar", age:15, ages:"teens adults", icon:"📱", level:"O‘rta", description:"Flutter va Dart bilan Android hamda iOS uchun ilova yarat.", duration:"10–14 hafta", modules:["Mobil ilova ekotizimi va Flutter","Dart tili: asosiy tushunchalar","Widget va sahifa tuzilishi","Holat, forma va navigatsiya","API va qurilmada sinash","Yakuniy loyiha: ishlaydigan mobil ilova"], about:"Flutter’da ekranlar widget’lardan yig‘iladi. Widget — matn, tugma yoki butun sahifa kabi ko‘rinadigan qism.", tool:"DartPad", url:"https://dartpad.dev/", steps:["DartPad’ni ochib Flutter rejimini tanla.","Editor ichidagi kodni belgila va namuna bilan almashtir.","Run tugmasini bosib o‘zgarishni ko‘r."], example:"import 'package:flutter/material.dart';\\n\\nvoid main() => runApp(\\n  const MaterialApp(home: Scaffold(\\n    body: Center(child: Text('Salom!')),\\n  )),\\n);", task:"Ilova sahifasiga sarlavha, qisqa izoh va bosilganda matnini o‘zgartiradigan tugma qo‘sh." },
+      ai: { title:"Sun’iy intellekt", age:15, ages:"teens adults", icon:"🤖", level:"Boshlang‘ich", description:"AI qanday ishlashini tushun, ma’lumot va model bilan tanish.", duration:"8–12 hafta", modules:["AI, machine learning va mas’uliyat","Ma’lumot yig‘ish va tayyorlash","Python bilan ma’lumotni o‘rganish","Model, belgi va bashorat","Model natijasini baholash","Yakuniy loyiha: sodda AI tajribasi"], about:"Sun’iy intellekt misollardan andoza topadi. Model yaxshi ishlashi uchun ma’lumot to‘g‘ri va xilma-xil bo‘lishi kerak.", tool:"Teachable Machine", url:"https://teachablemachine.withgoogle.com/", steps:["Teachable Machine’da Image Project’ni och.","Ikki sinf yaratib, har biriga farqli namuna qo‘sh.","Train Model’ni bosib, modelni yangi misollar bilan tekshir."], example:"Sinf A: olma rasmlari\\nSinf B: banan rasmlari\\nSavol: model ilgari ko‘rmagan mevani taniy oladimi?", task:"Kichik namuna loyihasi tuz. Modelga tanish va notanish misollar berib, qaysi holatda adashganini yoz." },
+      cyber: { title:"Kiberxavfsizlik", age:14, ages:"teens adults", icon:"🛡️", level:"Boshlang‘ich", description:"Raqamli xavfsizlik va shaxsiy ma’lumotlarni himoyalashni o‘rgan.", duration:"6–10 hafta", modules:["Raqamli xavfsizlik va tahdidlar","Parol, shaxsiy ma’lumot va himoya","Tarmoq va internet asoslari","Xavfsiz qurilma va brauzer","Maxfiylik, fishing va himoyalanish","Yakuniy loyiha: xavfsizlik rejasi"], about:"Kiberxavfsizlik qurilma va hisoblaringni himoyalaydi. Kuchli parol va shubhali havolalardan ehtiyot bo‘lish — muhim odatlar.", tool:"Interland xavfsizlik o‘yini", url:"https://beinternetawesome.withgoogle.com/en_us/interland", steps:["Interland sahifasida xavfsizlik o‘yinini tanla.","Vaziyatni o‘qib, javoblarning oqibatini ko‘rib chiq.","Parol yoki tasdiqlash kodini hech kimga yuborma."], example:"Xabar: “Hisobingiz yopiladi! Havolaga bosing va parolingizni kiriting.”\\nTekshir: yuboruvchi kim? Havola haqiqiymi? Shoshiltiryaptimi?", task:"Shubhali xabarni tekshirish uchun 5 bandli ro‘yxat tuz: yuboruvchi, havola, imlo, shoshiltirish va maxfiy ma’lumot." },
+      game: { title:"O‘yin yaratish", age:12, ages:"kids teens adults", icon:"🎮", level:"Boshlang‘ich", description:"O‘yin g‘oyasi va mexanikasini yaratib, uni o‘ynaladigan qil.", duration:"8–12 hafta", modules:["O‘yin g‘oyasi va mexanika","GDevelop muhiti va sahna","Obyekt, komponent va boshqaruv","Fizika, animatsiya va ovoz","Interfeys, ball va sinov","Yakuniy loyiha: kichik 2D o‘yin"], about:"O‘yin — sahna, qahramon, maqsad va qoidalar yig‘indisi. O‘yinchi nima qilishi va yutganini qanday bilishi aniq bo‘lsin.", tool:"GDevelop", url:"https://editor.gdevelop.io/", steps:["GDevelop online editor’da yangi loyiha yarat.","Bo‘sh 2D sahna va bitta o‘yinchi obyektini qo‘sh.","Preview’ni bosib, o‘yinni sinab ko‘r."], example:"Maqsad: yulduzlarni yig‘ish\\nBoshqaruv: chap / o‘ng / sakrash\\nYutuq: 5 ta yulduz yig‘ildi", task:"Bitta qahramon, boshqaruv va g‘alaba sharti bo‘lgan kichik o‘yin yarat." },
+      devops: { title:"DevOps va bulut", age:16, ages:"teens adults", icon:"☁️", level:"O‘rta", description:"Linux, Git va bulut xizmatlari bilan loyihalarni ishga tushir.", duration:"8–12 hafta", modules:["DevOps madaniyati va jarayonlar","Linux terminali va fayl tizimi","Git bilan versiyalarni boshqarish","Server va bulut tushunchalari","CI/CD va konteynerlarga kirish","Yakuniy loyiha: ilovani joylashtirish"], about:"DevOps dastur yozadigan jamoa va uni ishga tushiradigan tizimlar orasidagi ishni tartiblaydi.", tool:"GitHub", url:"https://github.com/", steps:["GitHub’da yangi ombor (repository) yarat.","README fayliga loyiha maqsadini yoz.","O‘zgarishlarni commit sifatida saqla va izoh ber."], example:"Loyiha: mening-saytim\\n1. Kodni o‘zgartir\\n2. O‘zgarishni tekshir\\n3. Git’da saqla\\n4. Saytni joylashtir", task:"Kichik loyihangga README yoz: uni ishga tushirish, tekshirish va yangilash qadamlarini tartib bilan bayon qil." },
+      backend: { title:"Backend dasturlash", age:15, ages:"teens adults", icon:"⚙️", level:"O‘rta", description:"Server, ma’lumotlar bazasi va API bilan ilovaning ichki qismini yarat.", duration:"10–14 hafta", modules:["Server va backend qanday ishlaydi","Node.js/Python va loyiha muhiti","API va HTTP so‘rovlar","Ma’lumotlar bazasi va CRUD","Validatsiya va xavfsizlik asoslari","Yakuniy loyiha: kichik web API"], about:"Backend foydalanuvchi ko‘rmaydigan, so‘rovni qabul qilib ma’lumot qaytaradigan server qismidir. API qismlarning gaplashish qoidasi.", tool:"Replit", url:"https://replit.com/", steps:["Replit’da yangi Node.js yoki Python loyiha och.","Namuna kodni joylashtirib Run tugmasini bos.","Ko‘rsatilgan URL’ni ochib server javobini tekshir."], example:'So‘rov: GET /salom\\nJavob:\\n{\\n  "xabar": "Salom, dunyo!"\\n}', task:"“Vazifalar ro‘yxati” API rejasini tuz: vazifalarni ko‘rish, yangisini qo‘shish va bittasini o‘chirish yo‘llarini yoz." }
+    };
+
+    const lessonTypes = ["Tushuncha va atamalar", "Asosiy vositalar bilan tanishuv", "Birinchi amaliy mashq", "Xatolarni topish va tuzatish", "Mini-loyiha va natijani ulashish"];
+    const grid = document.getElementById("courseGrid");
+    const dialog = document.getElementById("courseDialog");
+    const content = document.getElementById("lessonContent");
+    const bar = document.getElementById("courseProgressBar");
+    const toast = document.getElementById("toast");
+    const search = document.getElementById("courseSearch");
+    let activeCourse = "";
+    let activeAge = "all";
+    let toastTimer;
+    const storeKey = "itstart-learning-progress-v1";
+    let study = { completed: {}, notes: {} };
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 3500);
+    }
+    try {
+      const saved = localStorage.getItem(storeKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === "object") study = { completed: parsed.completed || {}, notes: parsed.notes || {} };
+      }
+    } catch (error) {
+      console.error("O‘quv jarayonini o‘qib bo‘lmadi.", error);
+      showToast("Brauzer xotirasi o‘qilmadi. O‘quv jarayoni saqlanmasligi mumkin.");
+    }
+    function saveStudy() {
+      try { localStorage.setItem(storeKey, JSON.stringify(study)); }
+      catch (error) { console.error("O‘quv jarayonini saqlab bo‘lmadi.", error); showToast("Dars natijasini saqlab bo‘lmadi. Brauzer xotirasini tekshir."); }
+    }
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (c) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;", "'":"&#39;" })[c]);
+    }
+    function doneSet(id) { return new Set(Array.isArray(study.completed[id]) ? study.completed[id] : []); }
+    function makeCards() {
+      grid.innerHTML = Object.entries(courses).map(([id, course]) => `
+        <button class="course-card" type="button" data-course="${id}" data-ages="${course.ages}" aria-label="${course.title}, ${course.age} yoshdan, 30 dars">
+          <span class="card-top"><span class="course-icon">${course.icon}</span><span class="level">${course.level}</span></span>
+          <span class="course-title">${course.title}</span><span class="course-description">${course.description}</span>
+          <span class="card-meta"><span>👤 ${course.age}+ yosh</span><span>⏱ ${course.duration}</span><span>30 dars →</span></span>
+        </button>`).join("") + '<div class="empty-state" id="emptyState">Bu qidiruvga mos yo‘nalish topilmadi. Boshqa so‘z bilan urinib ko‘r.</div>';
+      grid.querySelectorAll(".course-card").forEach((card) => card.addEventListener("click", () => openCourse(card.dataset.course)));
+      updateCards();
+    }
+    function updateCards() {
+      grid.querySelectorAll(".course-card").forEach((card) => {
+        const count = doneSet(card.dataset.course).size;
+        card.querySelector(".card-meta span:last-child").textContent = count ? `${count}/30 bajarildi →` : "30 dars →";
+      });
+    }
+    function updateProgress(id) {
+      const count = doneSet(id).size;
+      document.getElementById("dialogSubtitle").textContent = `${count}/30 dars bajarildi · ${courses[id].age}+ yosh · ${courses[id].duration}`;
+      bar.style.width = `${Math.min(count, 30) / 30 * 100}%`;
+      bar.setAttribute("aria-valuenow", String(Math.min(count, 30)));
+    }
+    function openCourse(id) {
+      activeCourse = id;
+      renderPlan();
+      if (!dialog.open) dialog.showModal();
+    }
+    function renderPlan() {
+      const course = courses[activeCourse];
+      const done = doneSet(activeCourse);
+      const next = Array.from({ length: 30 }, (_, i) => i).find((i) => !done.has(i));
+      document.getElementById("dialogTitle").textContent = course.title;
+      document.getElementById("backToPlan").hidden = true;
+      updateProgress(activeCourse);
+      content.innerHTML = `
+        <div class="start-lesson"><p>Har bir darsda sodda izoh, ko‘rsatma, namuna va amaliy mashq bor. Tayyor bo‘lsang, shu yerdan boshla.</p><button class="button small" data-action="start" data-index="${next === undefined ? 0 : next}">${next === undefined ? "Darslarni takrorlash" : done.size ? `${next + 1}-darsdan davom etish` : "Birinchi darsni boshlash"} →</button></div>
+        ${course.modules.map((module, mi) => `<section class="module"><h3>MODUL ${String(mi + 1).padStart(2, "0")} · ${escapeHtml(module)}</h3><ol class="lesson-list">${lessonTypes.map((name, li) => {
+          const index = mi * 5 + li; const complete = done.has(index);
+          return `<li><button type="button" class="lesson-open${complete ? " completed" : ""}" data-action="lesson" data-index="${index}"><span class="lesson-num">${String(index + 1).padStart(2, "0")}${complete ? " ✓" : ""}</span><span>${escapeHtml(module)}: ${escapeHtml(name)}</span></button></li>`;
+        }).join("")}</ol></section>`).join("")}`;
+    }
+    function renderLesson(index) {
+      const course = courses[activeCourse];
+      const moduleIndex = Math.floor(index / 5);
+      const kind = index % 5;
+      const module = course.modules[moduleIndex];
+      const guide = [
+        { title:"Avval tushunib olamiz", intro:`${course.about} Bugungi mavzu: ${module}.`, steps:[`${module} nomini o‘qi va bu nimani anglatishini o‘yla.`, course.about, "Namunani ko‘rib, izoh bilan bog‘liqligini top."] },
+        { title:"Muhitni tayyorla", intro:`${course.tool} — mashq qilish uchun brauzerda ochiladigan vosita.`, steps:course.steps },
+        { title:"Birgalikda mashq qilamiz", intro:`Namunani ko‘rib, “${module}” mavzusidagi o‘zgarishni o‘zing bajar.`, steps:[course.steps[0], "Namunani o‘qi va vositada qayta yarat.", "Bitta so‘z, qiymat yoki elementni o‘zgartir; natijani kuzat.", course.steps[2]] },
+        { title:"Xatoni topishni o‘rgan", intro:`Xato qilish — o‘rganishning bir qismi. “${module}” natijasini kichik qadamlar bilan tekshir.`, steps:["Namunani ishga tushir yoki ekranda qayta yarat.", "Bitta joyini ataylab o‘zgartir va nima buzilganini kuzat.", "O‘zgarishni qaytar. Belgilar, qiymatlar va tartibni tekshir.", "Tuzatgandan keyin natijani yana sinab ko‘r."] },
+        { title:"Endi o‘zing yarat", intro:`“${module}” bo‘yicha kichik loyiha qil. Mukammal bo‘lishi shart emas — maqsadi tushunarli bo‘lsin.`, steps:[course.steps[0], "Loyihang uchun bitta aniq maqsad yoz.", "Topshiriqni kichik qadamlarga bo‘lib bajar.", "Ishingni saqla va nimalarni o‘rganganingni qayd et."] }
+      ][kind];
+      const noteKey = `${activeCourse}-${index}`;
+      const complete = doneSet(activeCourse).has(index);
+      document.getElementById("dialogTitle").textContent = `${String(index + 1).padStart(2, "0")} · ${lessonTypes[kind]}`;
+      document.getElementById("backToPlan").hidden = false;
+      updateProgress(activeCourse);
+      content.innerHTML = `
+        <article class="lesson-detail">
+          <div class="section-kicker">${escapeHtml(course.title)} · ${moduleIndex + 1}-modul / 6</div>
+          <h3>${escapeHtml(module)}</h3><p class="lesson-intro">${escapeHtml(guide.intro)}</p>
+          <div class="teach-box"><h4>🧑‍🏫 ${escapeHtml(guide.title)}</h4><ol class="teach-steps">${guide.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol><a class="button small" href="${escapeHtml(course.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(course.tool)}ni ochish ↗</a></div>
+          <div class="teach-box"><h4>📌 Namuna</h4><p>Namunani o‘qi. Keyin o‘zing o‘zgartirib sinab ko‘r.</p><pre class="lesson-demo"><code>${escapeHtml(course.example).replace(/\\n/g, "\n")}</code></pre></div>
+          <div class="practice-box"><h4>✍️ Sening mashqing</h4><p>${kind === 4 ? escapeHtml(course.task) : `“${escapeHtml(module)}” mavzusida namunani qayta yarat. So‘ng bitta narsani o‘zgartirib, natijani tekshir.`}</p><p><strong>O‘zingni tekshir:</strong> Nima yaratding? Qanday ishladi? Nimani o‘zgartirsang natija ham o‘zgaradi?</p><label for="lessonNotes"><strong>Qaydlaring</strong></label><textarea class="lesson-note" id="lessonNotes" placeholder="Javobing yoki savolingni shu yerga yoz — avtomatik saqlanadi."></textarea><p class="lesson-intro">Qayd va bajarilgan darslar shu brauzerda saqlanadi.</p></div>
+          <div class="lesson-actions"><button class="button small${complete ? " done" : ""}" data-action="complete" data-index="${index}">${complete ? index < 29 ? "✅ Bajarildi — keyingi dars →" : "✅ Kurs tugadi" : "✅ Darsni bajarildi deb belgilash"}</button><button class="button secondary small" data-action="plan">← Barcha darslar</button></div>
+        </article>`;
+      content.querySelector("#lessonNotes").value = study.notes[noteKey] || "";
+      content.scrollTop = 0;
+    }
+    function filterCourses() {
+      const query = search.value.trim().toLocaleLowerCase("uz");
+      let visible = 0;
+      grid.querySelectorAll(".course-card").forEach((card) => {
+        const show = card.innerText.toLocaleLowerCase("uz").includes(query) && (activeAge === "all" || card.dataset.ages.split(" ").includes(activeAge));
+        card.hidden = !show; if (show) visible++;
+      });
+      document.getElementById("emptyState").style.display = visible ? "none" : "block";
+    }
+    makeCards();
+    search.addEventListener("input", filterCourses);
+    document.querySelectorAll(".filter").forEach((button) => button.addEventListener("click", () => {
+      activeAge = button.dataset.age;
+      document.querySelectorAll(".filter").forEach((item) => { const selected = item === button; item.classList.toggle("active", selected); item.setAttribute("aria-pressed", String(selected)); });
+      filterCourses();
+    }));
+    content.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-action]");
+      if (!button) return;
+      const index = Number(button.dataset.index);
+      if (button.dataset.action === "start" || button.dataset.action === "lesson") renderLesson(index);
+      if (button.dataset.action === "plan") renderPlan();
+      if (button.dataset.action === "complete") {
+        const completed = doneSet(activeCourse); completed.add(index);
+        study.completed[activeCourse] = [...completed].sort((a, b) => a - b);
+        saveStudy(); updateCards(); updateProgress(activeCourse);
+        if (index < 29) { showToast("Barakalla! Dars saqlandi. Keyingisiga o‘tamiz."); renderLesson(index + 1); }
+        else { showToast("Ajoyib! Bu yo‘nalishdagi 30 darsni tugatding."); renderPlan(); }
+      }
+    });
+    let noteTimer;
+    content.addEventListener("input", (event) => {
+      if (event.target.id !== "lessonNotes") return;
+      const button = content.querySelector('[data-action="complete"]');
+      if (!button) return;
+      study.notes[`${activeCourse}-${button.dataset.index}`] = event.target.value;
+      clearTimeout(noteTimer); noteTimer = setTimeout(saveStudy, 350);
+    });
+    document.getElementById("backToPlan").addEventListener("click", renderPlan);
+    document.getElementById("closeDialog").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+    menuButton.addEventListener("click", () => {
+      const opened = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(opened));
+      menuButton.setAttribute("aria-label", opened ? "Menyuni yopish" : "Menyuni ochish");
+    });
+    navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
+      navLinks.classList.remove("open"); menuButton.setAttribute("aria-expanded", "false");
+    }));
+    document.getElementById("donateButton").addEventListener("click", () => showToast("Donat imkoniyati keyinroq qo‘shiladi. Hozircha karta yoki to‘lov ulanmagan."));
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
